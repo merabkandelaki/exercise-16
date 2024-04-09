@@ -1,0 +1,75 @@
+.fish {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    border: 1px solid rgb(53, 51, 51);
+    border-radius: 25px;
+    background-color: white;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.description {
+    padding: 0px 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 15px;
+    color: black;
+}
+
+.description-title {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    width: 250px;
+}
+
+.show {
+    width: 120px;
+    height: 37px;
+    border: none;
+    border-radius: 15px;
+    background-color: rgb(18, 18, 26);
+    font-size: 19px;
+    font-weight: bold;
+    color: aliceblue;
+    cursor: pointer;
+}
+
+.modal-name {
+    font-size: 21px;
+    font-weight: bold;
+    color: black;
+}
+
+.stars {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.emoji-star {
+    font-size: 24px;
+    display: inline-block;
+    background-color: transparent;
+    color: inherit;
+}
+
+.like {
+    font-size: 24px;
+    display: inline-block;
+    background-color: transparent;
+    color: inherit;
+    border: none;
+    cursor: pointer;
+}

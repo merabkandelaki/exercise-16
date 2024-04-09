@@ -1,0 +1,14 @@
+{
+  "functions": {
+    "services/fishesApi.js": {
+      "memory": 1024,
+      "includeFiles": "mock-data/fishes-list.json"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "services/fishesApi.js"
+    }
+  ]
+}
