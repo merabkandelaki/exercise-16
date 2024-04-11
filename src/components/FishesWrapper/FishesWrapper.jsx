@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLoaderData, useNavigate, Outlet } from "react-router-dom";
 import FishCard from "../FishCard/FishCard";
-import "./FishesWrapper.css";
-import Modal from "../Modal/Modal";
-import CreateFishForm from "../CreateFishForm/CreateFishForm";
-import { useLoaderData } from "react-router-dom";
 import { getFishes } from "../../services/fishesApi";
+import styles from './FishesWrapper.module.css';
 
 export async function fishesLoader() {
   const fishes = await getFishes();
@@ -13,30 +11,32 @@ export async function fishesLoader() {
 }
 
 const FishesWrapper = () => {
+  const [triggerRefetch, setTriggerRefetch] = useState(false);
+  const navigate = useNavigate();
   const fishes = useLoaderData();
-
-  const [createFish, setCreateFish] = useState(false);
   const [fishList, setFishList] = useState(fishes);
 
-  const handleFishSubmit = (fish) => {
-    if (fish) {
-      setFishList((prevFishes) => {
-        return [...prevFishes, fish];
-      });
-      setCreateFish(false);
+  useEffect(() => {
+    if (triggerRefetch) {
+      const fetchData = async () => {
+        const fishData = await getFishes();
+        setFishList(fishData);
+      };
+      fetchData();
+      setTriggerRefetch(false);
     }
-  };
-  console.log("fishes", fishes);
+  }, [triggerRefetch]);
 
   return (
-    <div className="fishes-wrapper">
-      <button className="create-fish" onClick={() => setCreateFish(true)}>Create Fish</button>
-      {createFish && (
-        <Modal onClose={() => setCreateFish(false)}>
-          <CreateFishForm onFishSubmit={handleFishSubmit} />
-        </Modal>
-      )}
-      <div className="fishes-container">
+    <div className={styles.fishes_wrapper}>
+      <button
+        className={styles.create_fish}
+        onClick={() => navigate("/fishes/create")}
+      >
+        Create Fish
+      </button>
+      <Outlet context={{ setTriggerRefetch }} />
+      <div className={styles.fishes_container}>
         {fishList.map((fish, id) => {
           return (
             <FishCard
@@ -46,6 +46,7 @@ const FishesWrapper = () => {
               name={fish.name}
               region={fish.region}
               scientificName={fish.scientificName}
+              onCloseModal={() => navigate("/fishes")}
             />
           );
         })}

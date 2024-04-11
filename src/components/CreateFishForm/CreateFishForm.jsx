@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import "./CreateFishForm.css";
+import { useNavigate, useOutletContext } from "react-router-dom";
+import Modal from '../Modal/Modal';
+import { createFish } from "../../services/fishesApi";
 
-const CreateFishForm = ({ onFishSubmit }) => {
+const CreateFishForm = () => {
+  const navigate = useNavigate();
+  const { setTriggerRefetch } = useOutletContext();
+
   const [fishForm, setFishForm] = useState({
+    id: Math.random() + "",
     region: "",
     scientificName: "",
     name: "",
@@ -19,16 +26,23 @@ const CreateFishForm = ({ onFishSubmit }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const errors = validateForm();
     setFormErrors(errors);
 
     if (!Object.keys(errors).length) {
-      onFishSubmit(fishForm);
+      try {
+        await createFish(fishForm);
+        setTriggerRefetch(true);
+        navigate("/fishes");
+      } catch (error) {
+        console.error("Failed to create fish", error);
+      }
       // Reset form
       setFishForm({
+        id: Math.random() + "",
         region: "",
         scientificName: "",
         name: "",
@@ -61,80 +75,80 @@ const CreateFishForm = ({ onFishSubmit }) => {
     return errors;
   };
 
+  const handleClose = () => {
+    navigate("/fishes");
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="create-fish-form">
-      <label className="create-fish-form-label">
-        Region:
-        <input
-          type="text"
-          name="region"
-          value={fishForm.region}
-          onChange={handleChange}
-          className="create-fish-form-input"
-        />
-      </label>
-      {formErrors.region && (
-        <span className="create-fish-form-error">
-          {formErrors.region}
-        </span>
-      )}
-      <br />
-      <br />
-      <label className="create-fish-form-label">
-        ScientificName:
-        <input
-          type="text"
-          name="scientificName"
-          value={fishForm.scientificName}
-          onChange={handleChange}
-          className="create-fish-form-input"
-        />
-        {formErrors.scientificName && (
-          <span className="create-fish-form-error">
-            {formErrors.scientificName}
-          </span>
+    <Modal onClose={() => handleClose()}>
+      <form onSubmit={handleSubmit} className="create-fish-form">
+        <label className="create-fish-form-label">
+          Region:
+          <input
+            type="text"
+            name="region"
+            value={fishForm.region}
+            onChange={handleChange}
+            className="create-fish-form-input"
+          />
+        </label>
+        {formErrors.region && (
+          <span className="create-fish-form-error">{formErrors.region}</span>
         )}
-      </label>
-      <br />
-      <br />
-      <label className="create-fish-form-label">
-        Name:
-        <input
-          type="text"
-          name="name"
-          value={fishForm.name}
-          onChange={handleChange}
-          className="create-fish-form-input"
-        />
-        {formErrors.name && (
-          <span className="create-fish-form-error">
-            {formErrors.name}
-          </span>
-        )}
-      </label>
-      <br />
-      <br />
-      <label className="create-fish-form-label">
-        Image URL:
-        <input
-          type="text"
-          name="img"
-          value={fishForm.img}
-          onChange={handleChange}
-          className="create-fish-form-input"
-        />
-        {formErrors.img && (
-          <span className="create-fish-form-error">
-            {formErrors.img}
-          </span>
-        )}
-      </label>
-      <br />
-      <br />
-      <button type="submit" className="create-fish-form-button">
-        Create Fish
-      </button>
-    </form>
+        <br />
+        <br />
+        <label className="create-fish-form-label">
+          ScientificName:
+          <input
+            type="text"
+            name="scientificName"
+            value={fishForm.scientificName}
+            onChange={handleChange}
+            className="create-fish-form-input"
+          />
+          {formErrors.scientificName && (
+            <span className="create-fish-form-error">
+              {formErrors.scientificName}
+            </span>
+          )}
+        </label>
+        <br />
+        <br />
+        <label className="create-fish-form-label">
+          Name:
+          <input
+            type="text"
+            name="name"
+            value={fishForm.name}
+            onChange={handleChange}
+            className="create-fish-form-input"
+          />
+          {formErrors.name && (
+            <span className="create-fish-form-error">{formErrors.name}</span>
+          )}
+        </label>
+        <br />
+        <br />
+        <label className="create-fish-form-label">
+          Image URL:
+          <input
+            type="text"
+            name="img"
+            value={fishForm.img}
+            onChange={handleChange}
+            className="create-fish-form-input"
+          />
+          {formErrors.img && (
+            <span className="create-fish-form-error">{formErrors.img}</span>
+          )}
+        </label>
+        <br />
+        <br />
+        <button type="submit" className="create-fish-form-button">
+          Create Fish
+        </button>
+      </form>
+    </Modal>
   );
 };
 

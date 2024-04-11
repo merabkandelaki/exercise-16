@@ -8,7 +8,7 @@ function Error() {
     navigate(path);
   };
   return (
-    <div style={{ textAlign: "center" }}>
+    <div className="text-center">
       <h1>Something went wrong 😥</h1>
       <p>{error.data || error.message}</p>
       <button onClick={() => handleNavigate("/")}>Go to Home</button>

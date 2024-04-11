@@ -6,11 +6,13 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "json-server": "^1.0.0-alpha.23",
+    "json-server": "^0.17.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
     "react-scripts": "5.0.1",
+    "styled-components": "^6.1.8",
+    "tailwindcss": "^3.4.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -18,7 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "json-server --watch mock-data/fishes-list.json --port 9000"
+    "server": "json-server --watch mock-data/fishes-list.json --port 9000 --delay 2000"
   },
   "eslintConfig": {
     "extends": [

@@ -1,36 +1,26 @@
-import { useEffect, useState } from "react";
-import "./FishCard.css";
+import { useState } from "react";
 import Modal from "../Modal/Modal";
-import { getSingleFish } from "../../services/fishesApi";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useSearchParams } from "react-router-dom";
+import styles from './FishCard.module.css';
 
-const FishCard = ({ img, name, region, scientificName, id }) => {
-  const { id: idParam } = useParams();
+const FishCard = ({ img, name, region, scientificName, id, onCloseModal }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const fishIdQueryParam = searchParams.get("id");
 
-  const navigate = useNavigate();
-
-  const [selectedFish, setSelectedFish] = useState();
-  const getFish = async () => {
-    if (!idParam) return;
-
-    const matchedFish = await getSingleFish(idParam);
-    console.log(matchedFish);
-    if (matchedFish) setSelectedFish(matchedFish);
-  };
-
-  useEffect(() => {
-    getFish();
-  }, []);
-
-  const [isShowing, setIsShowing] = useState(false);
+  const [isShowing, setIsShowing] = useState(
+    fishIdQueryParam === id.toString()
+  );
   const [stars, setStars] = useState(0);
 
   const showFish = () => {
-    if (idParam) {
-      setIsShowing(true);
-    } else {
-      navigate(`/fishes/${id}`);
-    }
+    setIsShowing(true);
+    setSearchParams({ id });
+  };
+
+  const closeModal = () => {
+    setIsShowing(false);
+    onCloseModal();
+    setSearchParams({});
   };
 
   const handleStarClick = () => {
@@ -46,40 +36,29 @@ const FishCard = ({ img, name, region, scientificName, id }) => {
 
   return (
     <>
-      <div className="fish">
-        <img
-          className="img"
-          src={img || selectedFish?.illustrationPhoto?.src}
-          alt={name || selectedFish?.name}
-        />
-        <div className="description">
-          <p className="description-title">
-            Name: {name || selectedFish?.name}
+      <div className={styles.fish}>
+        <img className={styles.img} src={img} alt={name} />
+        <div className={styles.description}>
+          <p className={styles.description_title}>Name: {name}</p>
+          <p className={styles.description_title}>Region: {region}</p>
+          <p className={styles.description_title}>
+            Scientificname: {scientificName}
           </p>
-          <p className="description-title">
-            Region: {region || selectedFish?.region}
-          </p>
-          <p className="description-title">
-            Scientificname: {scientificName || selectedFish?.scientificName}
-          </p>
-          <button className="show" onClick={() => showFish()}>
+          <button className={styles.show} onClick={() => showFish()}>
             Show
           </button>
         </div>
       </div>
 
       {isShowing && (
-        <Modal onClose={() => setIsShowing(false)}>
-          <img
-            src={img || selectedFish?.illustrationPhoto?.src}
-            alt={name || selectedFish?.name}
-          ></img>
-          <p className="modal-name">Name: {name || selectedFish?.name}</p>
-          <span className="stars">
+        <Modal onClose={() => closeModal()}>
+          <img src={img} alt={name}></img>
+          <p className={styles.modal_name}>Name: {name}</p>
+          <span className={styles.stars}>
             Stars: {renderStars()}
-            <span className="emoji-star">{stars}</span>
+            <span className={styles.emoji_star}>{stars}</span>
             <button
-              className="like"
+              className={styles.like}
               onClick={() => {
                 if (stars < 10) {
                   handleStarClick();

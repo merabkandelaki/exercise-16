@@ -24,7 +24,7 @@ img {
     color: black;
 }
 
-.description-title {
+.description_title {
     margin-top: 0px;
     margin-bottom: 0px;
     width: 250px;
@@ -42,7 +42,7 @@ img {
     cursor: pointer;
 }
 
-.modal-name {
+.modal_name {
     font-size: 21px;
     font-weight: bold;
     color: black;
@@ -58,7 +58,7 @@ img {
     font-weight: bold;
 }
 
-.emoji-star {
+.emoji_star {
     font-size: 24px;
     display: inline-block;
     background-color: transparent;
