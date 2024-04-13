@@ -6,10 +6,15 @@ import FishesWrapper, {
   fishesLoader,
 } from "./components/FishesWrapper/FishesWrapper";
 import CreateFishForm from "./components/CreateFishForm/CreateFishForm";
+import AuthContextProvider from "./components/FishesWrapper/AuthContext";
 
 const router = createBrowserRouter([
   {
-    element: <AppLayout />,
+    element: (
+      <AuthContextProvider>
+        <AppLayout />
+      </AuthContextProvider>
+    ),
     errorElement: <Error />,
     children: [
       {
