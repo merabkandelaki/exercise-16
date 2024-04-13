@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import "./CreateFishForm.css";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import Modal from '../Modal/Modal';
@@ -7,6 +7,11 @@ import { createFish } from "../../services/fishesApi";
 const CreateFishForm = () => {
   const navigate = useNavigate();
   const { setTriggerRefetch } = useOutletContext();
+
+  const valueInputRef = useRef(null);
+  useEffect(() => {
+    valueInputRef.current.focus();
+  }, []);
 
   const [fishForm, setFishForm] = useState({
     id: Math.random() + "",
@@ -89,6 +94,7 @@ const CreateFishForm = () => {
             name="region"
             value={fishForm.region}
             onChange={handleChange}
+            ref={valueInputRef}
             className="create-fish-form-input"
           />
         </label>
