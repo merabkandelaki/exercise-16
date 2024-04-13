@@ -23,3 +23,9 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
 }
+
+.loading_fish {
+    text-align: left;
+    font-size: 50px;
+    color: black;
+}

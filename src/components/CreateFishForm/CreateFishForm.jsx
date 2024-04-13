@@ -6,7 +6,7 @@ import { createFish } from "../../services/fishesApi";
 
 const CreateFishForm = () => {
   const navigate = useNavigate();
-  const { setTriggerRefetch } = useOutletContext();
+  const { dispatchFishes } = useOutletContext();
 
   const valueInputRef = useRef(null);
   useEffect(() => {
@@ -33,17 +33,22 @@ const CreateFishForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatchFishes({ type: "LOADING", payload: true });
 
     const errors = validateForm();
     setFormErrors(errors);
 
     if (!Object.keys(errors).length) {
       try {
-        await createFish(fishForm);
-        setTriggerRefetch(true);
+        const newFish = await createFish(fishForm);
+        console.log("New Created Fish", newFish);
+        dispatchFishes({ type: "ADD_FISH", payload: newFish });
+        dispatchFishes({ type: "LOADING", payload: false });
+
         navigate("/fishes");
       } catch (error) {
         console.error("Failed to create fish", error);
+        dispatchFishes({ type: "LOADING", payload: false });
       }
       // Reset form
       setFishForm({
@@ -53,8 +58,10 @@ const CreateFishForm = () => {
         name: "",
         img: "",
       });
+      dispatchFishes({ type: "LOADING" });
     } else {
       console.log("Form is invalid");
+      dispatchFishes({ type: "LOADING", payload: false });
     }
   };
 

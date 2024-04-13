@@ -120,32 +120,18 @@
       "name": "Atlantic Halibut"
     },
     {
-      "id": "0.4820761473288908",
-      "region": "www",
-      "scientificName": "eee",
-      "name": "ddd",
-      "img": "https://static.vecteezy.com/system/resources/previews/009/380/313/non_2x/fish-drawing-clipart-design-illustration-free-png.png"
-    },
-    {
-      "id": "0.06203574530057021",
-      "region": "www",
-      "scientificName": "eee",
-      "name": "nnnn",
-      "img": "/images/atlantic_halibut.png"
-    },
-    {
-      "id": "0.7848017902008049",
-      "region": "asd",
-      "scientificName": "qwe",
-      "name": "lkj",
-      "img": "/images/sablefish.jpg"
-    },
-    {
-      "id": "0.8306065680438175",
-      "region": "poi",
-      "scientificName": "bvc",
-      "name": "lkj",
+      "id": "0.07476590901008406",
+      "region": "qqq",
+      "scientificName": "ddd",
+      "name": "eee",
       "img": "/images/pink_snapper.png"
+    },
+    {
+      "id": "0.5551979400029836",
+      "region": "ddd",
+      "scientificName": "vvv",
+      "name": "aaa",
+      "img": "/images/atlantic_halibut.png"
     }
   ]
 }

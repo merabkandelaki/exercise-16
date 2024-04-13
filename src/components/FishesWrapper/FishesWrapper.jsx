@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useReducer } from "react";
 import { useLoaderData, useNavigate, Outlet } from "react-router-dom";
 import FishCard from "../FishCard/FishCard";
 import { getFishes } from "../../services/fishesApi";
 import styles from './FishesWrapper.module.css';
+import fishesReducer from "./FishesReducer";
 
 export async function fishesLoader() {
   const fishes = await getFishes();
@@ -11,33 +12,25 @@ export async function fishesLoader() {
 }
 
 const FishesWrapper = () => {
-  const [triggerRefetch, setTriggerRefetch] = useState(false);
   const navigate = useNavigate();
   const fishes = useLoaderData();
-  const [fishList, setFishList] = useState(fishes);
-
-  useEffect(() => {
-    if (triggerRefetch) {
-      const fetchData = async () => {
-        const fishData = await getFishes();
-        setFishList(fishData);
-      };
-      fetchData();
-      setTriggerRefetch(false);
-    }
-  }, [triggerRefetch]);
+  const [fishesState, dispatchFishes] = useReducer(fishesReducer, {
+    fishList: fishes,
+    loading: false,
+  });
 
   return (
     <div className={styles.fishes_wrapper}>
+      {fishesState.loading && <div className={styles.loading_fish}>Loading...</div>}
       <button
         className={styles.create_fish}
         onClick={() => navigate("/fishes/create")}
       >
         Create Fish
       </button>
-      <Outlet context={{ setTriggerRefetch }} />
+      <Outlet context={{ dispatchFishes }} />
       <div className={styles.fishes_container}>
-        {fishList.map((fish, id) => {
+        {fishesState.fishList.map((fish, id) => {
           return (
             <FishCard
               key={id}
