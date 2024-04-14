@@ -17,10 +17,19 @@ const fishesReducer = (state, action) => {
         ...state,
         fishList: state.fishList.filter((fish) => fish.id !== action.payload),
       };
+
+    case "UPDATE_FISH":
+      return {
+        ...state,
+        fishList: state.fishList.map((fish) =>
+          fish.id === action.payload.id ? action.payload : fish
+        ),
+      };
+
     case "LOADING":
       return {
         ...state,
-        loading: action.loading,
+        loading: action.payload,
       };
     default:
       return state;

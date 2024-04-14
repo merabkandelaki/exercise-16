@@ -30,16 +30,36 @@ img {
     width: 250px;
 }
 
-.show {
-    width: 120px;
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.show, .edit, .delete {
+    width: 90px;
     height: 37px;
     border: none;
     border-radius: 15px;
-    background-color: rgb(18, 18, 26);
-    font-size: 19px;
+    font-size: 16px;
     font-weight: bold;
-    color: aliceblue;
     cursor: pointer;
+}
+
+.show {
+    color: blue;
+}
+
+.edit {
+    color: green;
+}
+
+.delete {
+    color: red;
+}
+
+.show:hover, .edit:hover, .delete:hover {
+    background-color: rgb(113, 174, 175);
 }
 
 .modal_name {

@@ -11,7 +11,7 @@
     height: 39px;
     border: none;
     border-radius: 15px;
-    background-color: rgb(18, 18, 26);
+    background-color: green;
     font-size: 19px;
     font-weight: bold;
     color: aliceblue;
@@ -22,10 +22,4 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
-}
-
-.loading_fish {
-    text-align: left;
-    font-size: 50px;
-    color: black;
 }

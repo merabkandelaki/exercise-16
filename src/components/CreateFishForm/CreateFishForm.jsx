@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import "./CreateFishForm.css";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import Modal from '../Modal/Modal';
-import { createFish } from "../../services/fishesApi";
+import { createFish, updateFish } from "../../services/fishesApi";
 
-const CreateFishForm = () => {
+const CreateFishForm = ({ isEdit = false }) => {
+  const { id } = useParams();
+
   const navigate = useNavigate();
-  const { dispatchFishes } = useOutletContext();
+  const { dispatchFishes, fishesState } = useOutletContext();
 
   const valueInputRef = useRef(null);
   useEffect(() => {
@@ -14,12 +16,21 @@ const CreateFishForm = () => {
   }, []);
 
   const [fishForm, setFishForm] = useState({
-    id: Math.random() + "",
+    id: id || Math.random() + "",
     region: "",
     scientificName: "",
     name: "",
     img: "",
   });
+
+  useEffect(() => {
+    if (isEdit) {
+      const existingFish = fishesState.fishList.find((fish) => fish.id === id);
+      if (existingFish) {
+        setFishForm(existingFish);
+      }
+    }
+  }, [isEdit, id, fishesState.fishList]);
 
   const [formErrors, setFormErrors] = useState({});
 
@@ -34,23 +45,29 @@ const CreateFishForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatchFishes({ type: "LOADING", payload: true });
-
     const errors = validateForm();
     setFormErrors(errors);
 
     if (!Object.keys(errors).length) {
       try {
-        const newFish = await createFish(fishForm);
-        console.log("New Created Fish", newFish);
-        dispatchFishes({ type: "ADD_FISH", payload: newFish });
-        dispatchFishes({ type: "LOADING", payload: false });
-
+        let updatedFish;
+        if (isEdit) {
+          updatedFish = await updateFish(fishForm.id, fishForm);
+          dispatchFishes({ type: "UPDATE_FISH", payload: updatedFish });
+        } else {
+          updatedFish = await createFish(fishForm);
+          dispatchFishes({ type: "ADD_FISH", payload: updatedFish });
+          dispatchFishes({ type: "LOADING", payload: false });
+        }
+        console.log(isEdit ? "Updated Fish" : "New Created Fish", updatedFish);
         navigate("/fishes");
       } catch (error) {
-        console.error("Failed to create fish", error);
+        console.error(
+          isEdit ? "Failed to update fish" : "Failed to create fish",
+          error
+        );
         dispatchFishes({ type: "LOADING", payload: false });
       }
-      // Reset form
       setFishForm({
         id: Math.random() + "",
         region: "",
@@ -58,7 +75,7 @@ const CreateFishForm = () => {
         name: "",
         img: "",
       });
-      dispatchFishes({ type: "LOADING" });
+      dispatchFishes({ type: "LOADING", payload: false });
     } else {
       console.log("Form is invalid");
       dispatchFishes({ type: "LOADING", payload: false });
@@ -157,9 +174,13 @@ const CreateFishForm = () => {
         </label>
         <br />
         <br />
-        <button type="submit" className="create-fish-form-button">
-          Create Fish
-        </button>
+        {fishesState.loading ? (
+          <span className="loading">Loading...</span>
+        ) : (
+          <button type="submit" className="create-fish-form-button">
+            {isEdit ? "Update Fish" : "Create Fish"}
+          </button>
+        )}
       </form>
     </Modal>
   );

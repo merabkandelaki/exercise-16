@@ -9,7 +9,7 @@ import AuthContextProvider, {
 function AppLayout() {
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
-  const { isAuth } = useAuthCont();
+  const { isAuth, login, logout } = useAuthCont();
   return (
     <div>
       {isLoading && <Loader />}
@@ -19,7 +19,7 @@ function AppLayout() {
           <NavBarItem title="Fishes" to="/fishes" />
           <NavBarItem title="About" to="/about" />
           <NavBarItem title="Contact" to="/contact" />
-          {isAuth ? <button>Log out</button> : <button>Login</button>}
+          {isAuth ? <button onClick={logout}>Log out</button> : <button onClick={login}>Login</button>}
         </NavBar>
       </AuthContextProvider>
       <Outlet />

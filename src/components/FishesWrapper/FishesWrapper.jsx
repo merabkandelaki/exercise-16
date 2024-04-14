@@ -7,7 +7,6 @@ import fishesReducer from "./FishesReducer";
 
 export async function fishesLoader() {
   const fishes = await getFishes();
-
   return fishes;
 }
 
@@ -21,14 +20,13 @@ const FishesWrapper = () => {
 
   return (
     <div className={styles.fishes_wrapper}>
-      {fishesState.loading && <div className={styles.loading_fish}>Loading...</div>}
       <button
         className={styles.create_fish}
         onClick={() => navigate("/fishes/create")}
       >
         Create Fish
       </button>
-      <Outlet context={{ dispatchFishes }} />
+      <Outlet context={{ dispatchFishes, fishesState }} />
       <div className={styles.fishes_container}>
         {fishesState.fishList.map((fish, id) => {
           return (
@@ -40,6 +38,7 @@ const FishesWrapper = () => {
               region={fish.region}
               scientificName={fish.scientificName}
               onCloseModal={() => navigate("/fishes")}
+              dispatchFishes={dispatchFishes}
             />
           );
         })}

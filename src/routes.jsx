@@ -31,6 +31,10 @@ const router = createBrowserRouter([
             path: "create",
             element: <CreateFishForm />,
           },
+          {
+            path: "edit/:id",
+            element: <CreateFishForm isEdit={true} />,
+          },
         ],
       },
     ],
