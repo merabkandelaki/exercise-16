@@ -39,6 +39,7 @@ const FishesWrapper = () => {
               scientificName={fish.scientificName}
               onCloseModal={() => navigate("/fishes")}
               dispatchFishes={dispatchFishes}
+              loading={fishesState.loading}
             />
           );
         })}

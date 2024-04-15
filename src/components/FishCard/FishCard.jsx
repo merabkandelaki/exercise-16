@@ -12,6 +12,7 @@ const FishCard = ({
   id,
   onCloseModal,
   dispatchFishes,
+  loading,
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const fishIdQueryParam = searchParams.get("id");
@@ -45,10 +46,13 @@ const FishCard = ({
 
   const handleDelete = async () => {
     try {
+      dispatchFishes({ type: "LOADING", payload: true });
       await deleteFish(id);
       dispatchFishes({ type: "REMOVE_FISH", payload: id });
+      dispatchFishes({ type: "LOADING", payload: false });
     } catch (error) {
       console.error('Error deleting fish:', error);
+      dispatchFishes({ type: "LOADING", payload: false });
     }
   };
   const navigate = useNavigate();
@@ -85,9 +89,13 @@ const FishCard = ({
             <button className={styles.edit} onClick={handleEdit}>
               Edit
             </button>
-            <button className={styles.delete} onClick={handleDelete}>
-              Delete
-            </button>
+            {loading ? (
+              <span className={styles.loading}>Loading...</span>
+            ) : (
+              <button className={styles.delete} onClick={handleDelete}>
+                Delete
+              </button>
+            )}
           </div>
         </div>
       </div>

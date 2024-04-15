@@ -93,3 +93,9 @@ img {
     border: none;
     cursor: pointer;
 }
+
+.loading {
+    font-size: 15px;
+    font-weight: bold;
+    color: red;
+}
