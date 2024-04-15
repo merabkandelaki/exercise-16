@@ -23,6 +23,8 @@ const CreateFishForm = ({ isEdit = false }) => {
     img: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (isEdit) {
       const existingFish = fishesState.fishList.find((fish) => fish.id === id);
@@ -44,7 +46,7 @@ const CreateFishForm = ({ isEdit = false }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatchFishes({ type: "LOADING", payload: true });
+    setLoading(true);
     const errors = validateForm();
     setFormErrors(errors);
 
@@ -57,7 +59,6 @@ const CreateFishForm = ({ isEdit = false }) => {
         } else {
           updatedFish = await createFish(fishForm);
           dispatchFishes({ type: "ADD_FISH", payload: updatedFish });
-          dispatchFishes({ type: "LOADING", payload: false });
         }
         console.log(isEdit ? "Updated Fish" : "New Created Fish", updatedFish);
         navigate("/fishes");
@@ -66,7 +67,8 @@ const CreateFishForm = ({ isEdit = false }) => {
           isEdit ? "Failed to update fish" : "Failed to create fish",
           error
         );
-        dispatchFishes({ type: "LOADING", payload: false });
+      } finally {
+        setLoading(false);
       }
       setFishForm({
         id: Math.random() + "",
@@ -75,10 +77,9 @@ const CreateFishForm = ({ isEdit = false }) => {
         name: "",
         img: "",
       });
-      dispatchFishes({ type: "LOADING", payload: false });
     } else {
       console.log("Form is invalid");
-      dispatchFishes({ type: "LOADING", payload: false });
+      setLoading(false);
     }
   };
 
@@ -110,6 +111,11 @@ const CreateFishForm = ({ isEdit = false }) => {
 
   return (
     <Modal onClose={() => handleClose()}>
+      {loading && (
+        <div className="loading">
+          <div className="loading-spinner"></div>
+        </div>
+      )}
       <form onSubmit={handleSubmit} className="create-fish-form">
         <label className="create-fish-form-label">
           Region:
@@ -174,13 +180,12 @@ const CreateFishForm = ({ isEdit = false }) => {
         </label>
         <br />
         <br />
-        {fishesState.loading ? (
-          <span className="loading">Loading...</span>
-        ) : (
+        <div className="button-with-spinner">
           <button type="submit" className="create-fish-form-button">
             {isEdit ? "Update Fish" : "Create Fish"}
           </button>
-        )}
+          {loading && <div className="loading-spinner"></div>}
+        </div>
       </form>
     </Modal>
   );

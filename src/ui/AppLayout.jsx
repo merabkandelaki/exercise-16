@@ -19,7 +19,11 @@ function AppLayout() {
           <NavBarItem title="Fishes" to="/fishes" />
           <NavBarItem title="About" to="/about" />
           <NavBarItem title="Contact" to="/contact" />
-          {isAuth ? <button onClick={logout}>Log out</button> : <button onClick={login}>Login</button>}
+          {isAuth ? (
+            <button onClick={logout}>Log out</button>
+          ) : (
+            <button onClick={login}>Login</button>
+          )}
         </NavBar>
       </AuthContextProvider>
       <Outlet />

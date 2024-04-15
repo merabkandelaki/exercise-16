@@ -12,8 +12,10 @@ const FishCard = ({
   id,
   onCloseModal,
   dispatchFishes,
-  loading,
+  loading: globalLoading,
 }) => {
+  const [loading, setLoading] = useState(false);
+
   const [searchParams, setSearchParams] = useSearchParams();
   const fishIdQueryParam = searchParams.get("id");
 
@@ -46,19 +48,35 @@ const FishCard = ({
 
   const handleDelete = async () => {
     try {
-      dispatchFishes({ type: "LOADING", payload: true });
+      setLoading(true);
       await deleteFish(id);
       dispatchFishes({ type: "REMOVE_FISH", payload: id });
-      dispatchFishes({ type: "LOADING", payload: false });
+      setLoading(false);
     } catch (error) {
       console.error('Error deleting fish:', error);
-      dispatchFishes({ type: "LOADING", payload: false });
+      setLoading(false);
     }
   };
   const navigate = useNavigate();
 
+  // const handleEdit = async () => {
+  //   try {
+  //     const updatedFish = await updateFish(id, {
+  //       name,
+  //       region,
+  //       scientificName,
+  //       img,
+  //     });
+  //     dispatchFishes({ type: "UPDATE_FISH", payload: updatedFish });
+  //     navigate(`/fishes/edit/${id}`);
+  //   } catch (error) {
+  //     console.error("Failed to update fish", error);
+  //   }
+  // };
+
   const handleEdit = async () => {
     try {
+      setLoading(true);
       const updatedFish = await updateFish(id, {
         name,
         region,
@@ -67,8 +85,10 @@ const FishCard = ({
       });
       dispatchFishes({ type: "UPDATE_FISH", payload: updatedFish });
       navigate(`/fishes/edit/${id}`);
+      setLoading(false);
     } catch (error) {
       console.error("Failed to update fish", error);
+      setLoading(false);
     }
   };
 
@@ -89,8 +109,10 @@ const FishCard = ({
             <button className={styles.edit} onClick={handleEdit}>
               Edit
             </button>
-            {loading ? (
-              <span className={styles.loading}>Loading...</span>
+            {loading || globalLoading ? (
+              <div className={styles.loading_delete}>
+                <div className={styles.loading_spinner}></div>
+              </div>
             ) : (
               <button className={styles.delete} onClick={handleDelete}>
                 Delete
