@@ -1,25 +1,40 @@
 {
   "fishes": [
     {
-      "name": "Crimson Jobfish",
-      "region": "ASDFGH",
+      "id": "1",
+      "info": "Bottomfish fishing operations, typically using weighted lines and baited hooks, do not have adverse impacts to the habitat.",
+      "region": "Pacific Islands",
       "scientificName": "Pristipomoides filamentosus",
-      "img": "images/pink_snapper.png",
-      "id": "1"
+      "illustrationPhoto": {
+        "src": "images/pink_snapper.png",
+        "alt": "Pink snapper",
+        "title": "Pink snapper"
+      },
+      "name": "Crimson Jobfish"
     },
     {
-      "name": "White Hake",
-      "region": "AAAAAAA",
+      "id": "2",
+      "info": "Area closures and gear restrictions protect habitats that are affected by some kinds of trawl gear.",
+      "region": "Greater Atlantic",
       "scientificName": "Urophycis tenuis",
-      "img": "images/white_hake.jpg",
-      "id": "2"
+      "illustrationPhoto": {
+        "src": "images/white_hake.jpg",
+        "alt": "Illustration of white hake. Credit: Jack Hornady.",
+        "title": ""
+      },
+      "name": "White Hake"
     },
     {
-      "name": "Atlantic Chub Mackerel",
+      "id": "3",
+      "info": "Area closures and gear restrictions protect habitat that are affected by some types of trawl gear.",
       "region": "Greater Atlantic",
       "scientificName": "Scomber colias",
-      "img": "images/atlantic_mackerel.png",
-      "id": "3"
+      "illustrationPhoto": {
+        "src": "images/atlantic_mackerel.png",
+        "alt": "Illustration of Atlantic chub mackerel",
+        "title": "Atlantic chub mackerel"
+      },
+      "name": "Atlantic Chub Mackerel"
     },
     {
       "id": "4",
@@ -34,11 +49,16 @@
       "name": "Shortfin Squid"
     },
     {
-      "name": "American Lobster",
+      "id": "5",
+      "info": "Fishing gears used to harvest American lobster have minimal impacts on habitat.",
       "region": "Greater Atlantic",
       "scientificName": "Homarus americanus",
-      "img": "images/american_lobster.png",
-      "id": "5"
+      "illustrationPhoto": {
+        "src": "images/american_lobster.png",
+        "alt": "American Lobster",
+        "title": "American Lobster"
+      },
+      "name": "American Lobster"
     },
     {
       "id": "6",
@@ -87,6 +107,24 @@
         "title": ""
       },
       "name": "Sablefish"
+    },
+    {
+      "id": "10",
+      "region": "Greater Atlantic",
+      "scientificName": "Hippoglossus hippoglossus",
+      "illustrationPhoto": {
+        "src": "images/atlantic_halibut.png",
+        "alt": "Illustration of Atlantic Halibut.",
+        "title": "Illustration of Atlantic Halibut."
+      },
+      "name": "Atlantic Halibut"
+    },
+    {
+      "id": "0.6337167414242855",
+      "region": "sss",
+      "scientificName": "fff",
+      "name": "hhh",
+      "img": "https://static.vecteezy.com/system/resources/previews/009/380/313/non_2x/fish-drawing-clipart-design-illustration-free-png.png"
     }
   ]
 }
