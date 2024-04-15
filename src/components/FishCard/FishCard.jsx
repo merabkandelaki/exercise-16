@@ -59,21 +59,6 @@ const FishCard = ({
   };
   const navigate = useNavigate();
 
-  // const handleEdit = async () => {
-  //   try {
-  //     const updatedFish = await updateFish(id, {
-  //       name,
-  //       region,
-  //       scientificName,
-  //       img,
-  //     });
-  //     dispatchFishes({ type: "UPDATE_FISH", payload: updatedFish });
-  //     navigate(`/fishes/edit/${id}`);
-  //   } catch (error) {
-  //     console.error("Failed to update fish", error);
-  //   }
-  // };
-
   const handleEdit = async () => {
     try {
       setLoading(true);
