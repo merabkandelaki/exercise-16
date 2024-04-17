@@ -6,7 +6,12 @@ import FishesWrapper, {
   fishesLoader,
 } from "./components/FishesWrapper/FishesWrapper";
 import CreateFishForm from "./components/CreateFishForm/CreateFishForm";
-import AuthContextProvider from "./components/FishesWrapper/AuthContext";
+import AuthContextProvider from "./context/AuthContext";
+import PrivateRoute from "./components/PrivateRoute";
+import Login from "./auth/Login";
+import AuthLayout from "./auth/AuthLayout";
+import Register from "./auth/Register";
+import { authLoader } from "./loaders/auth.loader";
 
 const router = createBrowserRouter([
   {
@@ -29,11 +34,34 @@ const router = createBrowserRouter([
         children: [
           {
             path: "create",
-            element: <CreateFishForm />,
+            element: (
+              <PrivateRoute>
+                <CreateFishForm />
+              </PrivateRoute>
+            ),
           },
           {
             path: "edit/:id",
             element: <CreateFishForm isEdit={true} />,
+          },
+        ],
+      },
+      {
+        path: "/auth",
+        element: <AuthLayout />,
+        loader: authLoader,
+        children: [
+          {
+            index: true,
+            element: <Login />,
+          },
+          {
+            path: "/auth/login",
+            element: <Login />,
+          },
+          {
+            path: "/auth/register",
+            element: <Register />,
           },
         ],
       },
