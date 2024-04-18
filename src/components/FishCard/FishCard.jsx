@@ -1,8 +1,11 @@
+import axios from 'axios';
 import { useState } from "react";
 import Modal from "../Modal/Modal";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { deleteFish, updateFish } from '../../services/fishesApi';
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import styles from './FishCard.module.css';
+import { useAuthCont } from '../../context/AuthContext';
+
+const API_URL = "http://localhost:9000";
 
 const FishCard = ({
   img,
@@ -15,12 +18,15 @@ const FishCard = ({
   loading: globalLoading,
 }) => {
   const [loading, setLoading] = useState(false);
+  const { isAuth } = useAuthCont();
 
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const { id: queryId } = useParams();
   const fishIdQueryParam = searchParams.get("id");
 
   const [isShowing, setIsShowing] = useState(
-    fishIdQueryParam === id.toString()
+    fishIdQueryParam === id?.toString() || queryId === id?.toString()
   );
   const [stars, setStars] = useState(0);
 
@@ -47,9 +53,13 @@ const FishCard = ({
   };
 
   const handleDelete = async () => {
+    if (!isAuth) {
+      navigate("/auth/login");
+      return;
+    }
     try {
       setLoading(true);
-      await deleteFish(id);
+      await axios.delete(`${API_URL}/fishes/${id}`);
       dispatchFishes({ type: "REMOVE_FISH", payload: id });
       setLoading(false);
     } catch (error) {
@@ -62,7 +72,7 @@ const FishCard = ({
   const handleEdit = async () => {
     try {
       setLoading(true);
-      const updatedFish = await updateFish(id, {
+      const { data: updatedFish } = await axios.put(`${API_URL}/fishes/${id}`, {
         name,
         region,
         scientificName,

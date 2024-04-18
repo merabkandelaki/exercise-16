@@ -1,8 +1,10 @@
+import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import "./CreateFishForm.css";
 import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import Modal from '../Modal/Modal';
-import { createFish, updateFish } from "../../services/fishesApi";
+
+const API_URL = "http://localhost:9000";
 
 const CreateFishForm = ({ isEdit = false }) => {
   const { id } = useParams();
@@ -54,13 +56,19 @@ const CreateFishForm = ({ isEdit = false }) => {
       try {
         let updatedFish;
         if (isEdit) {
-          updatedFish = await updateFish(fishForm.id, fishForm);
-          dispatchFishes({ type: "UPDATE_FISH", payload: updatedFish });
+          updatedFish = await axios.put(
+            `${API_URL}/fishes/${fishForm.id}`,
+            fishForm
+          );
+          dispatchFishes({ type: "UPDATE_FISH", payload: updatedFish.data });
         } else {
-          updatedFish = await createFish(fishForm);
-          dispatchFishes({ type: "ADD_FISH", payload: updatedFish });
+          updatedFish = await axios.post(`${API_URL}/fishes`, fishForm);
+          dispatchFishes({ type: "ADD_FISH", payload: updatedFish.data });
         }
-        console.log(isEdit ? "Updated Fish" : "New Created Fish", updatedFish);
+        console.log(
+          isEdit ? "Updated Fish" : "New Created Fish",
+          updatedFish.data
+        );
         navigate("/fishes");
       } catch (error) {
         console.error(

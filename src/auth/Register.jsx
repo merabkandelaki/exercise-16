@@ -1,15 +1,18 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import { registerUser } from "../services/authApi";
+import { useReducer } from "react";
+import registerReducer from "./RegisterReducer";
 
 const Register = () => {
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [regState, dispatch] = useReducer(registerReducer, {
+    email: "",
+    firstName: "",
+    lastName: "",
+    username: "",
+    password: "",
+  });
 
   const navigate = useNavigate();
 
@@ -17,13 +20,7 @@ const Register = () => {
     event.preventDefault();
 
     try {
-      const res = await registerUser({
-        email,
-        firstName,
-        lastName,
-        username,
-        password,
-      });
+      const res = await registerUser(regState);
       if (res?.accessToken) {
         navigate("/auth/login");
       }
@@ -43,8 +40,10 @@ const Register = () => {
             type="email"
             name="email"
             placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={regState.email}
+            onChange={(e) =>
+              dispatch({ type: 'SET_EMAIL', payload: e.target.value })
+            }
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
@@ -53,8 +52,10 @@ const Register = () => {
             type="text"
             name="firstName"
             placeholder="First Name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            value={regState.firstName}
+            onChange={(e) =>
+              dispatch({ type: 'SET_FIRST_NAME', payload: e.target.value })
+            }
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
@@ -63,8 +64,10 @@ const Register = () => {
             type="text"
             name="lastName"
             placeholder="Last Name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            value={regState.lastName}
+            onChange={(e) =>
+              dispatch({ type: 'SET_LAST_NAME', payload: e.target.value })
+            }
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
@@ -73,8 +76,10 @@ const Register = () => {
             type="text"
             name="username"
             placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={regState.username}
+            onChange={(e) =>
+              dispatch({ type: 'SET_USERNAME', payload: e.target.value })
+            }
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
@@ -83,8 +88,10 @@ const Register = () => {
             type="password"
             name="password"
             placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={regState.password}
+            onChange={(e) =>
+              dispatch({ type: 'SET_PASSWORD', payload: e.target.value })
+            }
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>

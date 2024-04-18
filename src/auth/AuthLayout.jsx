@@ -4,7 +4,7 @@ import Modal from "../components/Modal/Modal";
 const AuthLayout = () => {
   const navigate = useNavigate();
   return (
-    <Modal onClose={() => navigate(-1)}>
+    <Modal onClose={() => navigate('/fishes')}>
       <Outlet />
     </Modal>
   );

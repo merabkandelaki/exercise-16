@@ -7,6 +7,14 @@
       "lastName": "kandelaki",
       "username": "kandelakimerab@gmail.com",
       "id": 1
+    },
+    {
+      "email": "merabi@gmail.com",
+      "password": "$2a$10$fRQaFgsW6O2Ie9rKhrXiee4NWru5vQdTBRYy8ZMw.F8mXpjpNtaeC",
+      "firstName": "merabi",
+      "lastName": "kandelaki",
+      "username": "merabi@gmail.com",
+      "id": 2
     }
   ]
 }
