@@ -70,21 +70,7 @@ const FishCard = ({
   const navigate = useNavigate();
 
   const handleEdit = async () => {
-    try {
-      setLoading(true);
-      const { data: updatedFish } = await axios.put(`${API_URL}/fishes/${id}`, {
-        name,
-        region,
-        scientificName,
-        img,
-      });
-      dispatchFishes({ type: "UPDATE_FISH", payload: updatedFish });
-      navigate(`/fishes/edit/${id}`);
-      setLoading(false);
-    } catch (error) {
-      console.error("Failed to update fish", error);
-      setLoading(false);
-    }
+    navigate(`/fishes/edit/${id}`);
   };
 
   return (

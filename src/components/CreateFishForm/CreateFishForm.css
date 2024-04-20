@@ -31,6 +31,11 @@
     cursor: pointer;
 }
 
+.create-fish-form-button[disabled]{
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 .loading {
     font-size: 15px;
     font-weight: bold;

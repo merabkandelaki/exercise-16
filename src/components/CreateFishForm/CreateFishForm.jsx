@@ -17,6 +17,7 @@ const CreateFishForm = ({ isEdit = false }) => {
     valueInputRef.current.focus();
   }, []);
 
+  const [isDisabled, setIsDisabled] = useState(true);
   const [fishForm, setFishForm] = useState({
     id: id || Math.random() + "",
     region: "",
@@ -44,6 +45,7 @@ const CreateFishForm = ({ isEdit = false }) => {
       ...prevData,
       [name]: value,
     }));
+    setIsDisabled(false);
   };
 
   const handleSubmit = async (e) => {
@@ -178,7 +180,7 @@ const CreateFishForm = ({ isEdit = false }) => {
           <input
             type="text"
             name="img"
-            value={fishForm.img}
+            value={fishForm?.img || fishForm?.illustrationPhoto?.src}
             onChange={handleChange}
             className="create-fish-form-input"
           />
@@ -189,7 +191,11 @@ const CreateFishForm = ({ isEdit = false }) => {
         <br />
         <br />
         <div className="button-with-spinner">
-          <button type="submit" className="create-fish-form-button">
+          <button
+            disabled={isDisabled}
+            type="submit"
+            className="create-fish-form-button"
+          >
             {isEdit ? "Update Fish" : "Create Fish"}
           </button>
           {loading && <div className="loading-spinner"></div>}

@@ -13,8 +13,8 @@
       "name": "Crimson Jobfish"
     },
     {
-      "name": "White Hake",
-      "region": "Greater Atlantic",
+      "name": "White Hake222",
+      "region": "aaaaaaaaaaaaaass22www",
       "scientificName": "Urophycis tenuis",
       "img": "images/white_hake.jpg",
       "id": "2"
@@ -113,6 +113,13 @@
         "title": "Illustration of Atlantic Halibut."
       },
       "name": "Atlantic Halibut"
+    },
+    {
+      "id": "0.12679830524761626",
+      "region": "www",
+      "scientificName": "qq",
+      "name": "qq",
+      "img": "/images/pink_snapper.png"
     }
   ]
 }
