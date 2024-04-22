@@ -3,6 +3,8 @@ import NavBar from "../components/NavBar/NavBar";
 import NavBarItem from "../components/NavBar/NavBarItem/NavBarItem";
 import Loader from "./Loader";
 import { useAuthCont } from "../context/AuthContext";
+import "./AppLayout.css";
+import Footer from "../components/Footer/Footer";
 
 function AppLayout() {
   const navigation = useNavigation();
@@ -23,15 +25,18 @@ function AppLayout() {
     <div>
       {isLoading && <Loader />}
       <NavBar>
-        <NavBarItem title="Home" to="/" />
-        <NavBarItem title="Fishes" to="/fishes" />
-        <NavBarItem title="About" to="/about" />
-        <NavBarItem title="Contact" to="/contact" />
-        <button onClick={handleAuthAction}>
+        <div>
+          <NavBarItem title="Home" to="/" />
+          <NavBarItem title="Fishes" to="/fishes" />
+          <NavBarItem title="About" to="/about" />
+          <NavBarItem title="Contact" to="/contact" />
+        </div>
+        <button className="navbar-login-button" onClick={handleAuthAction}>
           {isAuth ? "Log out" : "Login"}
         </button>
       </NavBar>
       <Outlet />
+      <Footer/>
     </div>
   );
 }

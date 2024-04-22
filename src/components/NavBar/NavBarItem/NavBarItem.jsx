@@ -1,27 +1,13 @@
 import React from "react";
-import { NavLink as RouterNavLink } from "react-router-dom";
-import styled from "styled-components";
-
-const NavLink = styled(RouterNavLink)`
-  padding: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  text-decoration: none;
-  color: black;
-
-  &:hover {
-    background-color: gray;
-    color: white;
-  }
-
-  &.active {
-    background-color: gray;
-    color: white;
-  }
-`;
+import { NavLink } from "react-router-dom";
+import "./NavbarItem.css";
 
 const NavBarItem = ({ title, to }) => {
-  return <NavLink to={to}>{title}</NavLink>;
+  return (
+    <NavLink className="nav-link" to={to}>
+      {title}
+    </NavLink>
+  );
 };
 
 export default NavBarItem;

@@ -108,7 +108,7 @@ const CreateFishForm = ({ isEdit = false }) => {
       errors.name = "Name is required!";
     }
 
-    if (fishForm.img.trim() === "") {
+    if (fishForm.img === "") {
       errors.img = "Image URL is required!";
     }
 

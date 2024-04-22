@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import AppLayout from "./ui/AppLayout";
-import Home from "./ui/Home";
+import Home, { homeLoader } from "./ui/Home";
 import Error from "./ui/Error";
 import FishesWrapper, {
   fishesLoader,
@@ -12,6 +12,8 @@ import Login from "./auth/Login";
 import AuthLayout from "./auth/AuthLayout";
 import Register from "./auth/Register";
 import { authLoader } from "./loaders/auth.loader";
+
+
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        loader: homeLoader,
       },
       {
         path: "/fishes",

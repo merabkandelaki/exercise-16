@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../services/authApi";
 import { useAuthCont } from "../context/AuthContext";
+import "../auth/Login.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -21,8 +22,7 @@ const Login = () => {
 
       if (res?.accessToken) {
         login(res.accessToken, res.user);
-
-        navigate("/");
+        navigate("/fishes");
       }
     } catch (error) {
       console.log(error);
@@ -30,9 +30,9 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full max-w-xs p-8 bg-white shadow-md rounded-xl">
-      <h3 className="text-xl font-semibold text-center text-gray-800">Login</h3>
-      <form onSubmit={handleLogin} className="mt-4 space-y-4">
+    <div className="login">
+      <h3 className="login-title">Login</h3>
+      <form onSubmit={handleLogin} className="form">
         <div>
           <input
             type="email"
@@ -40,7 +40,7 @@ const Login = () => {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="login-input"
           />
         </div>
 
@@ -51,20 +51,14 @@ const Login = () => {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="login-input"
           />
         </div>
-        <button
-          type="submit"
-          className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-md hover:bg-blue-700"
-        >
+        <button type="submit" className="login-button">
           Log In
         </button>
-        <div className="text-center">
-          <Link
-            to="/auth/register"
-            className="text-sm text-blue-500 hover:underline"
-          >
+        <div className="title-register-head">
+          <Link to="/auth/register" className="title-register">
             Register
           </Link>
         </div>

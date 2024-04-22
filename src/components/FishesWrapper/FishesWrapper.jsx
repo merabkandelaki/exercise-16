@@ -1,8 +1,8 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import { useLoaderData, useNavigate, Outlet } from "react-router-dom";
 import FishCard from "../FishCard/FishCard";
 import { getFishes } from "../../services/fishesApi";
-import styles from './FishesWrapper.module.css';
+import "./FishesWrapper.css";
 import fishesReducer from "./FishesReducer";
 
 export async function fishesLoader() {
@@ -17,18 +17,34 @@ const FishesWrapper = () => {
     fishList: fishes,
     loading: false,
   });
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredFishes = fishesState.fishList.filter((fish) =>
+    fish.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
-    <div className={styles.fishes_wrapper}>
+    <div className="fishes-wrapper">
       <button
-        className={styles.create_fish}
+        className="create-fish"
         onClick={() => navigate("/fishes/create")}
       >
         Create Fish
       </button>
+      <input
+        type="text"
+        placeholder="Search fishes..."
+        value={searchTerm}
+        onChange={handleSearch}
+        className="search"
+      />
       <Outlet context={{ dispatchFishes, fishesState }} />
-      <div className={styles.fishes_container}>
-        {fishesState.fishList.map((fish, id) => {
+      <div className="fishes-container">
+        {filteredFishes.map((fish, id) => {
           return (
             <FishCard
               key={id}

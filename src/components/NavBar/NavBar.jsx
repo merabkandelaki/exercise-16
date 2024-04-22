@@ -1,15 +1,8 @@
 import React from "react";
-import styled from "styled-components";
-
-const StyledNavBar = styled.nav`
-  display: flex;
-  align-items: center;
-  height: 100px;
-  padding: 20px;
-`;
+import "../NavBar/NavBar.css";
 
 function NavBar({ children }) {
-  return <StyledNavBar>{children}</StyledNavBar>;
+  return <div className="nav-bar">{children}</div>;
 }
 
 export default NavBar;

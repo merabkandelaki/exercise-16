@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
 import { registerUser } from "../services/authApi";
 import { useReducer } from "react";
 import registerReducer from "./RegisterReducer";
+import "../auth/Register.css";
 
 const Register = () => {
   const [regState, dispatch] = useReducer(registerReducer, {
@@ -30,11 +30,9 @@ const Register = () => {
   };
 
   return (
-    <div className="w-full max-w-md p-8 space-y-4 bg-white shadow-lg rounded-xl">
-      <h3 className="text-2xl font-semibold text-center text-gray-900">
-        Registration
-      </h3>
-      <form onSubmit={handleRegister} className="space-y-4">
+    <div className="register">
+      <h3 className="register-title">Registration</h3>
+      <form onSubmit={handleRegister} className="form-register">
         <div>
           <input
             type="email"
@@ -44,7 +42,7 @@ const Register = () => {
             onChange={(e) =>
               dispatch({ type: 'SET_EMAIL', payload: e.target.value })
             }
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="register-input"
           />
         </div>
         <div>
@@ -56,7 +54,7 @@ const Register = () => {
             onChange={(e) =>
               dispatch({ type: 'SET_FIRST_NAME', payload: e.target.value })
             }
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="register-input"
           />
         </div>
         <div>
@@ -68,7 +66,7 @@ const Register = () => {
             onChange={(e) =>
               dispatch({ type: 'SET_LAST_NAME', payload: e.target.value })
             }
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="register-input"
           />
         </div>
         <div>
@@ -80,7 +78,7 @@ const Register = () => {
             onChange={(e) =>
               dispatch({ type: 'SET_USERNAME', payload: e.target.value })
             }
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="register-input"
           />
         </div>
         <div>
@@ -92,20 +90,14 @@ const Register = () => {
             onChange={(e) =>
               dispatch({ type: 'SET_PASSWORD', payload: e.target.value })
             }
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="register-input"
           />
         </div>
-        <button
-          type="submit"
-          className="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-        >
+        <button type="submit" className="register-button">
           Register
         </button>
-        <div className="text-center">
-          <Link
-            to="/auth/login"
-            className="text-sm text-blue-500 hover:underline"
-          >
+        <div className="title-login-head">
+          <Link to="/auth/login" className="title-login">
             Login
           </Link>
         </div>

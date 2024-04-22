@@ -7,7 +7,6 @@ axios.interceptors.request.use(
     config.baseURL = API_BASE_URL;
 
     const token = localStorage.getItem("token");
-    console.log("interceptors", token)
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
