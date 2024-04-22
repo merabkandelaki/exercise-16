@@ -3,6 +3,7 @@ import FishCard from "../components/FishCard/FishCard";
 import { useLoaderData } from "react-router-dom";
 import { fishesLoader } from "../components/FishesWrapper/FishesWrapper";
 import './Home.css';
+import './Mobile.css';
 
 const Home = () => {
   const { isAuth, user } = useAuthCont();
@@ -12,7 +13,10 @@ const Home = () => {
 
   return (
     <div className="home">
-      <h1 className="home-title">Welcome to Fishes App 🐟 {isAuth ? user.firstName : ""}</h1>
+      <h1 className="home-title">
+        Welcome to Fishes App 🐟{" "}
+        <span className="firstname">{isAuth ? user.firstName : ""}</span>
+      </h1>
       {favorites.length > 0 ? (
         <div className="favorite-fishes">
           <h2 className="home-title-favorites">Your Favorite Fishes:</h2>

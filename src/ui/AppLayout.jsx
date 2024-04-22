@@ -36,7 +36,7 @@ function AppLayout() {
         </button>
       </NavBar>
       <Outlet />
-      <Footer/>
+      <Footer />
     </div>
   );
 }

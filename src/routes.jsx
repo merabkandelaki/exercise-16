@@ -13,8 +13,6 @@ import AuthLayout from "./auth/AuthLayout";
 import Register from "./auth/Register";
 import { authLoader } from "./loaders/auth.loader";
 
-
-
 const router = createBrowserRouter([
   {
     element: (

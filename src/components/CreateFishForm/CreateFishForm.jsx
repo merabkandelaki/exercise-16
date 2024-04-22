@@ -121,18 +121,13 @@ const CreateFishForm = ({ isEdit = false }) => {
 
   return (
     <Modal onClose={() => handleClose()}>
-      {loading && (
-        <div className="loading">
-          <div className="loading-spinner"></div>
-        </div>
-      )}
       <form onSubmit={handleSubmit} className="create-fish-form">
         <label className="create-fish-form-label">
           Region:
           <input
             type="text"
             name="region"
-            value={fishForm.region}
+            value={fishForm.region || ''}
             onChange={handleChange}
             ref={valueInputRef}
             className="create-fish-form-input"
@@ -148,7 +143,7 @@ const CreateFishForm = ({ isEdit = false }) => {
           <input
             type="text"
             name="scientificName"
-            value={fishForm.scientificName}
+            value={fishForm.scientificName || ''}
             onChange={handleChange}
             className="create-fish-form-input"
           />
@@ -165,7 +160,7 @@ const CreateFishForm = ({ isEdit = false }) => {
           <input
             type="text"
             name="name"
-            value={fishForm.name}
+            value={fishForm.name || ''}
             onChange={handleChange}
             className="create-fish-form-input"
           />
@@ -180,7 +175,7 @@ const CreateFishForm = ({ isEdit = false }) => {
           <input
             type="text"
             name="img"
-            value={fishForm?.img || fishForm?.illustrationPhoto?.src}
+            value={fishForm?.img || fishForm?.illustrationPhoto?.src || ''}
             onChange={handleChange}
             className="create-fish-form-input"
           />

@@ -29,14 +29,6 @@ const FishCard = ({
   useEffect(() => {
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     setIsFavorite(favorites.includes(id));
-
-    if (isHomePage && favorites.includes(id)) {
-      setIsShowing(true);
-    } else {
-      setIsShowing(
-        fishIdQueryParam === id?.toString() || queryId === id?.toString()
-      );
-    }
   }, [id, isHomePage, fishIdQueryParam, queryId]);
 
   const toggleFavorite = () => {
@@ -57,6 +49,7 @@ const FishCard = ({
   };
 
   const handleStarClick = async () => {
+    if (stars > 9) return;
     setStars(stars + 1);
   };
 
@@ -99,9 +92,16 @@ const FishCard = ({
         </button>
         <img className="img" src={img} alt={name} />
         <div className="description">
-          <p className="description-title">Name: {name}</p>
-          <p className="description-title">Region: {region}</p>
-          <p className="description-title">Scientificname: {scientificName}</p>
+          <p className="description-title">
+            Name: <span className="description-title-value">{name}</span>
+          </p>
+          <p className="description-title">
+            Region: <span className="description-title-value">{region}</span>
+          </p>
+          <p className="description-title">
+            Scientificname:{" "}
+            <span className="description-title-value">{scientificName}</span>
+          </p>
           <div className="buttons">
             {isAuth && !isFavorite && (
               <>
@@ -109,6 +109,7 @@ const FishCard = ({
                   className="edit"
                   onClick={(e) => {
                     e.stopPropagation();
+                    e.preventDefault();
                     handleEdit();
                   }}
                 >

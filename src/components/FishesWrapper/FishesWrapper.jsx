@@ -4,6 +4,7 @@ import FishCard from "../FishCard/FishCard";
 import { getFishes } from "../../services/fishesApi";
 import "./FishesWrapper.css";
 import fishesReducer from "./FishesReducer";
+import "./Mobile.css";
 
 export async function fishesLoader() {
   const fishes = await getFishes();
