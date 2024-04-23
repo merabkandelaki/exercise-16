@@ -22,7 +22,7 @@ function AppLayout() {
   };
 
   return (
-    <div>
+    <div className="app-layout">
       {isLoading && <Loader />}
       <NavBar>
         <div>
@@ -35,7 +35,9 @@ function AppLayout() {
           {isAuth ? "Log out" : "Login"}
         </button>
       </NavBar>
-      <Outlet />
+      <div className="app-layout-content">
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );
